@@ -1,0 +1,49 @@
+CREATE DATABASE store;
+GRANT ALL ON store.* TO 'fred'@'localhost' IDENTIFIED BY 'zap';
+GRANT ALL ON store.* TO 'fred'@'127.0.0.1' IDENTIFIED BY 'zap';
+
+CREATE TABLE users (
+  user_id INTEGER NOT NULL AUTO_INCREMENT,
+  name VARCHAR(128),
+  email VARCHAR(128),
+  password VARCHAR(128),
+  PRIMARY KEY(user_id)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE users ADD INDEX(email);
+ALTER TABLE users ADD INDEX(password);
+
+CREATE TABLE stock (
+  medicine_id INTEGER NOT NULL AUTO_INCREMENT,
+user_id INTEGER NOT NULL,
+  name VARCHAR(128),
+category VARCHAR(128),
+  mgf_company VARCHAR(128),
+  price FLOAT,
+ current_stock INTEGER,
+ chemical_comp VARCHAR(128),
+super_stockist VARCHAR(128),
+date_m DATE,
+  side_effects VARCHAR(128),
+storage_condition VARCHAR(128),
+warning VARCHAR(128),
+ PRIMARY KEY(medicine_id),
+  CONSTRAINT profile_ibfk_2
+  FOREIGN KEY (user_id)
+  REFERENCES users (user_id)
+  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE customer (
+ customer_id INTEGER NOT NULL AUTO_INCREMENT,
+ p_name VARCHAR(128),
+ p_phone_no VARCHAR(128),
+ p_quantity INTEGER,
+ p_med_name VARCHAR(128),
+ PRIMARY KEY(customer_id)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE customer
+ADD p_date DATE;
+
+ALTER TABLE customer AUTO_INCREMENT = 1;
